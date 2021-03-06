@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import logo from '@/assets/img/logo.png'
 export default {
   name: 'SidebarLogo',
   props: {
@@ -24,8 +25,8 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Admin Template',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: 'Testflow Tool',
+      logo: logo
     }
   }
 }
@@ -55,10 +56,11 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
-      height: 32px;
+      width: 26px;
+      height: 26px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 10px;
+      margin-bottom: 5px;
     }
 
     & .sidebar-title {
@@ -67,7 +69,7 @@ export default {
       color: #fff;
       font-weight: 600;
       line-height: 50px;
-      font-size: 14px;
+      font-size: 16px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }
