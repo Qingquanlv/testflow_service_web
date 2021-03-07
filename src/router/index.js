@@ -29,9 +29,9 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard' }
       },
       {
-        path: 'config',
-        component: () => import('@/views/config'),
-        meta: { title: '配置', icon: 'config' }
+        path: 'parameter',
+        component: () => import('@/views/parameter'),
+        meta: { title: '参数配置', icon: 'config' }
       }
     ]
   },
