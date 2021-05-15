@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const defaultSettings = require('./src/settings.js')
 
 function resolve(dir) {
@@ -38,7 +39,7 @@ module.exports = {
     },
     proxy:{
       '/':{
-        target: 'http://localhost:8082'
+        target: 'http://192.168.0.3:8082'
       }
     }
     //before: require('./mock/mock-server.js')
@@ -65,6 +66,12 @@ module.exports = {
       }
     ])
 
+    config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
+        {
+            // Languages are loaded on demand at runtime
+            languages: ['json', 'typescript', 'html', 'css']
+        }
+    ])
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
 

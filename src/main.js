@@ -29,6 +29,13 @@ Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
+import CTree from './components/CTree.vue'
+Vue.component('c-tree', CTree)
+
+Vue.prototype.$prettyJs = require('js-beautify'); // also available under "js" export
+Vue.prototype.$prettyCss = require('js-beautify').css;
+Vue.prototype.$prettyHtml = require('js-beautify').html;
+
 Vue.config.productionTip = false
 
 new Vue({
