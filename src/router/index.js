@@ -32,6 +32,11 @@ export const constantRoutes = [
         path: 'parameter',
         component: () => import('@/views/parameter'),
         meta: { title: '参数配置', icon: 'config' }
+      },
+      {
+        path: 'wfd',
+        component: () => import('@/views/wfd'),
+        meta: { title: '流程配置', icon: 'config' }
       }
     ]
   },

@@ -42,7 +42,7 @@
 
 
 <script>
-import { deepCopy } from '@/utils/CommonUtil'
+import { deepCopy, uuid } from '@/utils/CommonUtil'
 import MonacoEditor from '@/components/MonacoEditor.vue';
 import { queryAll, deleteByName, update } from '@/api/parameter'
 const jsonFormat = require('json-format');
@@ -133,7 +133,7 @@ export default {
       },
       doSave(){
           let req = {
-              requestId: "1",
+              requestId: uuid(),
               parameter_name: this.item.name,
               parameters: this.item.parameters || []
           }
