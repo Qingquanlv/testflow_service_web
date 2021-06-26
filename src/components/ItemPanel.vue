@@ -1,7 +1,21 @@
 <template>
     <div class="itemPanel" :style="{'height': height+'px'}">
         <el-collapse v-model="activeNames" >
-            <el-collapse-item :title="i18n['start']" name="1">
+            <el-collapse-item :title="i18n['node']" name="1">
+                <img :data-item="databaseTaskData"
+                     :src="require('../assets/flow/script-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['databaseTask']}}</div>
+                <img :data-item="parseTaskData"
+                     :src="require('../assets/flow/java-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['parseTask']}}</div>
+                <img :data-item="requestTaskData"
+                     :src="require('../assets/flow/mail-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['requestTask']}}</div>
+                <img :data-item="verificationTaskData"
+                     :src="require('../assets/flow/receive-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['verificationTask']}}</div>
+            </el-collapse-item>
+            <!-- <el-collapse-item :title="i18n['start']" name="1">
                 <img data-item="{clazz:'start',size:'30*30',label:''}"
                      :src="require('../assets/flow/start.svg')" style="width:42px;height:42px" />
                 <div>{{i18n['startEvent']}}</div>
@@ -58,7 +72,7 @@
                 <img data-item="{clazz:'end',size:'30*30',label:''}"
                      :src="require('../assets/flow/end.svg')" style="width:42px;height:42px" />
                 <div>{{i18n['endEvent']}}</div>
-            </el-collapse-item>
+            </el-collapse-item> -->
         </el-collapse>
     </div>
 </template>
@@ -73,12 +87,11 @@
     },
     data() {
       return {
-        activeNames: [],
-        userTaskData: "{clazz:'userTask',size:'80*44',label:'"+this.i18n['userTask']+"'}",
-        scriptTaskData: "{clazz:'scriptTask',size:'80*44',label:'"+this.i18n['scriptTask']+"'}",
-        javaTaskData: "{clazz:'javaTask',size:'80*44',label:'"+this.i18n['javaTask']+"'}",
-        mailTaskData: "{clazz:'mailTask',size:'80*44',label:'"+this.i18n['mailTask']+"'}",
-        receiveTaskData: "{clazz:'receiveTask',size:'80*44',label:'"+this.i18n['receiveTask']+"'}",
+        activeNames: ['1'],
+        databaseTaskData: "{clazz:'database',size:'80*44',label:'"+this.i18n['databaseTask']+"'}",
+        parseTaskData: "{clazz:'parse',size:'80*44',label:'"+this.i18n['parseTask']+"'}",
+        requestTaskData: "{clazz:'request',size:'80*44',label:'"+this.i18n['requestTask']+"'}",
+        verificationTaskData: "{clazz:'verification',size:'80*44',label:'"+this.i18n['verificationTask']+"'}",
       };
     },
   }

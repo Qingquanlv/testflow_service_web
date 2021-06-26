@@ -63,7 +63,7 @@
         type: String,
         default: "zh"
       },
-      data: {
+      wfdData: {
         type: Object,
         default: () => ({nodes:[],edges:[]})
       },
@@ -98,8 +98,9 @@
       };
     },
     watch:{
-      data(oldData,newData){
-        if(oldData !== newData) {
+      wfdData:{
+        deep:true,
+        handler(newData, oldData){
           if (this.graph) {
             this.graph.changeData(this.initShape(newData));
             this.graph.setMode(this.mode);
@@ -127,7 +128,7 @@
             edges: data.edges
           }
         }
-        return data;
+        return { nodes:[], edges:[] };
       },
       initEvents(){
         this.graph.on('afteritemselected',(items)=>{
@@ -231,9 +232,9 @@
         this.graph.setMode('view');
       else
         this.graph.setMode(this.mode);
-      this.graph.data(this.initShape(this.data));
+      this.graph.data(this.initShape(this.wfdData));
       this.graph.render();
-      if(this.isView && this.data && this.data.nodes){
+      if(this.isView && this.wfdData && this.wfdData.nodes){
         this.graph.fitView(5)
       }
       this.initEvents();

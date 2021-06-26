@@ -1,92 +1,106 @@
 <template>
-  <div id="wfd-app">
-    <!-- <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">导出XML</el-button>
-    <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveImg()}">导出图片</el-button> -->
-    <el-button type="primary" size="small" style="float:right;margin-top:6px;margin-right:6px;">保存</el-button>
-    <wfd-vue ref="wfd" :data="demoData" :height="800" :users="candidateUsers" :groups="candidateGroups" :categorys="categorys" :lang="lang" />
-    <!-- <el-dialog title="查看流程图" :visible.sync="modalVisible" width="60%">
-        <wfd-vue ref="wfd" :data="demoData1" :height="300" isView />
-    </el-dialog> -->
+  <div>
+    <edit op="add" :row="{}" @reload="loadFeaturnList" />
+    <hr>
+    <el-table :data="featureList" border style="width: 100%">
+      <el-table-column prop="feature_id" label="ID" > </el-table-column>
+      <el-table-column prop="featureName" label="名称" > </el-table-column>
+      <el-table-column prop="description" label="描述" > </el-table-column>
+      <el-table-column label="操作" >
+        <template slot-scope="scope">
+          <el-button type="success" size="small" style="margin-right:10px;" @click="onExec(scope.row)">执行</el-button>
+          <edit op="edit" :row="scope.row" @reload="loadFeaturnList" />
+          <el-button type="danger" size="small" style="margin-left:10px;" @click="doDel(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-dialog title="参数 & 结果" :visible.sync="show" width="70%">
+      <div style="width:50%;height:500px;display:inline-block">
+        <h3>执行参数</h3>
+        <MonacoEditor style="width:100%;height:500px;"
+            theme="vs-dark"
+            @change="onChange"
+            value="{}"
+            ref="reqEditor">
+        </MonacoEditor>
+      </div>
+      <div style="width:50%;height:500px;display:inline-block">
+        <h3>执行结果</h3>
+        <MonacoEditor style="width:100%;height:500px;"
+            theme="vs-dark"
+            value="{}"
+            ref="respEditor">
+        </MonacoEditor>
+      </div>
+      <div slot="footer">
+        <el-button @click="show = false">取 消</el-button>
+        <el-button type="primary" @click="doExec">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import WfdVue from '@/components/Wfd'
+import { deepCopy, uuid } from '@/utils/CommonUtil'
+import edit from './edit.vue'
+import MonacoEditor from '@/components/MonacoEditor.vue';
+import { queryAll, getById, del, exec } from '@/api/feature'
+const jsonFormat = require('json-format');
 export default {
-  name: 'wfd-app',
-  components:{
-    WfdVue
-  },
-  data () {
-    return {
-      modalVisible:false,
-      lang: "zh",
-      demoData: {
-        nodes: [{ id: 'startNode1', x: 50, y: 200, label: '', clazz: 'start', },
-          { id: 'startNode2', x: 50, y: 320, label: '', clazz: 'timerStart', },
-          { id: 'taskNode1', x: 200, y: 200, label: '主任审批', clazz: 'userTask',  },
-          { id: 'taskNode2', x: 400, y: 200, label: '经理审批', clazz: 'scriptTask',  },
-          { id: 'gatewayNode', x: 400, y: 320, label: '金额大于1000', clazz: 'inclusiveGateway',  },
-          { id: 'taskNode3', x: 400, y: 450, label: '董事长审批', clazz: 'receiveTask', },
-          { id: 'catchNode1', x: 600, y: 200, label: '等待结束', clazz: 'signalCatch', },
-          { id: 'endNode', x: 600, y: 320, label: '', clazz: 'end', }],
-        edges: [{ source: 'startNode1', target: 'taskNode1', sourceAnchor:1, targetAnchor:3, clazz: 'flow' },
-          { source: 'startNode2', target: 'gatewayNode', sourceAnchor:1, targetAnchor:3, clazz: 'flow' },
-          { source: 'taskNode1', target: 'catchNode1', sourceAnchor:0, targetAnchor:0, clazz: 'flow' },
-          { source: 'taskNode1', target: 'taskNode2', sourceAnchor:1, targetAnchor:3, clazz: 'flow' },
-          { source: 'taskNode2', target: 'gatewayNode', sourceAnchor:1, targetAnchor:0, clazz: 'flow' },
-          { source: 'taskNode2', target: 'taskNode1', sourceAnchor:2, targetAnchor:2, clazz: 'flow' },
-          { source: 'gatewayNode', target: 'taskNode3', sourceAnchor:2, targetAnchor:0, clazz: 'flow' },
-          { source: 'gatewayNode', target: 'endNode', sourceAnchor:1, targetAnchor:2, clazz: 'flow'},
-          { source: 'taskNode3', target: 'endNode', sourceAnchor:1, targetAnchor:1, clazz: 'flow' },
-          { source: 'catchNode1', target: 'endNode', sourceAnchor:1, targetAnchor:0, clazz: 'flow' }],
-        config: [
-            {
-                id: 'taskNode1', 
-                params: { 'aaa':'xxx', 'bbb':'yyy' }
-            },
-            {
-                id: 'taskNode2', 
-                params: { 'aaa':'xxx', 'bbb':'yyy' }
-            }
-        ]
-      },
-      demoData1:{
-        nodes: [{ id: 'startNode1', x: 50, y: 200, label: '', clazz: 'start', },
-          { id: 'startNode2', x: 50, y: 320, label: '', clazz: 'timerStart', },
-          { id: 'taskNode1', x: 200, y: 200, label: '主任审批', clazz: 'userTask',  },
-          { id: 'taskNode2', x: 400, y: 200, label: '经理审批', clazz: 'scriptTask', active:true },
-          { id: 'gatewayNode', x: 400, y: 320, label: '金额大于1000', clazz: 'gateway',  },
-          { id: 'taskNode3', x: 400, y: 450, label: '董事长审批', clazz: 'receiveTask', },
-          { id: 'catchNode1', x: 600, y: 200, label: '等待结束', clazz: 'signalCatch', },
-          { id: 'endNode', x: 600, y: 320, label: '', clazz: 'end', }],
-        edges: [{ source: 'startNode1', target: 'taskNode1', sourceAnchor:1, targetAnchor:3, clazz: 'flow' },
-          { source: 'startNode2', target: 'gatewayNode', sourceAnchor:1, targetAnchor:3, clazz: 'flow' },
-          { source: 'taskNode1', target: 'catchNode1', sourceAnchor:0, targetAnchor:0, clazz: 'flow' },
-          { source: 'taskNode1', target: 'taskNode2', sourceAnchor:1, targetAnchor:3, clazz: 'flow' },
-          { source: 'taskNode2', target: 'gatewayNode', sourceAnchor:1, targetAnchor:0, clazz: 'flow' },
-          { source: 'taskNode2', target: 'taskNode1', sourceAnchor:2, targetAnchor:2, clazz: 'flow' },
-          { source: 'gatewayNode', target: 'taskNode3', sourceAnchor:2, targetAnchor:0, clazz: 'flow' },
-          { source: 'gatewayNode', target: 'endNode', sourceAnchor:1, targetAnchor:2, clazz: 'flow'},
-          { source: 'taskNode3', target: 'endNode', sourceAnchor:1, targetAnchor:1, clazz: 'flow' },
-          { source: 'catchNode1', target: 'endNode', sourceAnchor:1, targetAnchor:0, clazz: 'flow' }]
-      },
-      candidateUsers: [{id:'1',name:'Tom'},{id:'2',name:'Steven'},{id:'3',name:'Andy'}],
-      candidateGroups: [{id:'1',name:'Manager'},{id:'2',name:'Security'},{id:'3',name:'OA'}],
-      categorys: [{id:'1',name:'Common'},{id:'2',name:'Subsidy'},{id:'3',name:'Maintain'}],
+  data(){
+    return{
+      featureList:[],
+      show:false,
+      row:{},
+      parameters:{},
     }
   },
-  mounted() {
+  created(){
+    this.loadFeaturnList()
+  },
+  components:{
+    edit,MonacoEditor
+  },
+  methods:{
+    loadFeaturnList(){
+      queryAll({}).then(resp => {
+        this.featureList = resp.features
+      })
+    },
+    onExec(row){
+      this.show = true
+      this.row = row
+      this.parameters = {}
+      this.$refs.reqEditor && this.$refs.reqEditor._setValue('{}')
+      this.$refs.respEditor && this.$refs.respEditor._setValue('{}')
+    },
+    onChange(value) {
+      if(value){
+        try {
+          this.parameters = JSON.parse(value || '[]') 
+        } catch (error) {
+        }
+      }
+    },
+    doDel(row){
+      del(row.feature_id).then(resp => {
+        this.loadFeaturnList()
+        this.$message({
+          message: resp.status && resp.status.success ? '删除成功' : '删除失败',
+          type: resp.status && resp.status.success ? 'success' : 'error'
+        });
+      })
+    },
+    doExec(){
+      let req = {
+          "requestId": uuid(),
+          "parameters": this.parameters,
+          "featureId": this.row.feature_id
+      }
+      exec(req).then(resp => {
+        this.$refs.respEditor && this.$refs.respEditor._setValue(jsonFormat(resp))
+      })
+    }
   }
 }
 </script>
-
-<style>
-#wfd-app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>

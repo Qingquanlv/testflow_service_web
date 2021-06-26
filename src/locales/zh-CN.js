@@ -73,4 +73,9 @@ export default {
   'process.dataObjs.type': '类型',
   'process.dataObjs.defaultValue': '默认值',
   'process.signalDef.scope': '作用域',
+  'node': '节点',
+  'databaseTask':'数据库',
+  'parseTask':'代码段',
+  'requestTask':'Http请求',
+  'verificationTask':'断言',
 };

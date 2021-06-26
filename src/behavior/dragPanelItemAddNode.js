@@ -72,7 +72,7 @@ export default function(G6){
     _addNodeBySubProcess(p, node) {
       if (this.graph.get('addNodeDragging')) {
         const addModel = this.graph.get('addModel');
-        const { clazz = 'userTask' } = addModel;
+        const { clazz = 'database' } = addModel;
         addModel.shape = getShapeName(clazz);
         addModel.size = addModel.size.split("*");
         const timestamp = new Date().getTime();
@@ -116,7 +116,7 @@ export default function(G6){
     _addNode(p){
       if (this.graph.get('addNodeDragging')) {
         const addModel = this.graph.get('addModel');
-        const { clazz = 'userTask' } = addModel;
+        const { clazz = 'database' } = addModel;
         //type、shape属性同时存在即兼容之前版本的数据，又兼容g6的升级
         addModel.type = getShapeName(clazz);
         addModel.shape = getShapeName(clazz);

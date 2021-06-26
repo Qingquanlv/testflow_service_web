@@ -13,7 +13,7 @@ export default {
     width: {type: [String, Number], default: '100%'},
     height: {type: [String, Number], default: '100%'},
     original: String,       //只有在diff模式下有效
-    value: String,
+    value: {type: String, default: ''},
     language: {type: String, default: 'json'},
     theme: {type: String, default: 'vs'},
     options: {type: Object, default() {return {};}},
@@ -29,8 +29,8 @@ export default {
       }
     },
 
-    value() {
-      this.editor && this._setValue(this.value);
+    value(val) {
+      this.editor && this._setValue(val);
     },
 
     language() {
