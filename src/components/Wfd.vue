@@ -12,8 +12,8 @@
                    :users="users"
                    :groups="groups"
                    :categorys="categorys"
-                   :signalDefs="processModel.signalDefs"
-                   :messageDefs="processModel.messageDefs"
+                   :signalDefs="defaultModel.signalDefs"
+                   :messageDefs="defaultModel.messageDefs"
                    :onChange="(key,val)=>{onItemCfgChange(key,val)}" />
     </div>
   </div>
@@ -84,7 +84,7 @@
       return {
         resizeFunc: ()=>{},
         selectedModel: {},
-        processModel: {
+        defaultModel: {
           id: '',
           name: '',
           category: '',
@@ -139,7 +139,7 @@
             }
             this.selectedModel = {...item.getModel()};
           } else {
-            this.selectedModel = this.processModel;
+            // this.selectedModel = this.defaultModel;
           }
         });
         const page = this.$refs['canvas'];
@@ -167,9 +167,9 @@
           }
           this.selectedModel = {...item.getModel()};
         } else {
-          const canvasModel = { ...this.processModel, [key]: value};
+          const canvasModel = { ...this.defaultModel, [key]: value};
           this.selectedModel = canvasModel;
-          this.processModel = canvasModel;
+          this.defaultModel = canvasModel;
         }
       },
       getNodeInSubProcess(itemId){
@@ -227,8 +227,8 @@
           type: 'flow-polyline-round',
         },
       });
-      this.graph.saveXML = (createFile = true) => exportXML(this.graph.save(),this.processModel,createFile);
-      this.graph.saveImg = (createFile = true) => exportImg(this.$refs['canvas'],this.processModel.name,createFile);
+      this.graph.saveXML = (createFile = true) => exportXML(this.graph.save(),this.defaultModel,createFile);
+      this.graph.saveImg = (createFile = true) => exportImg(this.$refs['canvas'],this.defaultModel.name,createFile);
       if(this.isView)
         this.graph.setMode('view');
       else

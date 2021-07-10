@@ -4,7 +4,7 @@
         <div class="panelBody">
             <TestFlowDefault :model="model" :onChange="onChange" :readOnly="readOnly" />
             <div class="panelRow">
-                <h3>SQL语句</h3>
+                <div>SQL语句：</div>
                 <MonacoEditor style="width:100%;height:200px;"
                     language="sql"
                     theme="vs-dark"

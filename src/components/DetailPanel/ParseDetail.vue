@@ -4,20 +4,20 @@
         <div class="panelBody">
             <TestFlowDefault :model="model" :onChange="onChange" :readOnly="readOnly" />
             <div class="panelRow">
-                <h3>方法参数：</h3>
+                <div>方法参数：</div>
                 <el-input size="small"
                         style="width:90%; font-size:12px"
                         :disabled="readOnly"
-                        :value="initArgs"
+                        :value="params.parameters"
                         @input="(value) => {argsChange(value)}" />
             </div>
             <div class="panelRow">
-                <h3>Java代码段</h3>
+                <div>Java代码段：</div>
                 <MonacoEditor style="width:100%;height:200px;"
                     language="java"
                     theme="vs-dark"
                     @change="javaChange"
-                    :value="initJava"
+                    value=""
                     ref="javaEditor">
                 </MonacoEditor>
             </div>
@@ -52,43 +52,34 @@
     },
     data() {
       return {
-          initJava: this.model.exec_params.cvt_method_source,
-          initArgs: this.cvtArgs()
+        params : this.copyParams()
       }
     },
     watch:{
+        params:{
+            deep:true,
+            handler(newVal){
+                this.onChange('exec_params', newVal)
+            }
+        }
     },
     methods: {
-      cvtArgs(){
-        let p = ''
-        try{
-          p = JSON.parse(this.model.exec_params.parameters).join(',')
-        }catch(error){
-          p = this.model.exec_params.parameters
+        copyParams(){
+            let data = {
+                parameters: (this.model.exec_params && this.model.exec_params.parameters) || '',
+                cvt_method_source: (this.model.exec_params && this.model.exec_params.cvt_method_source) || ''
+            }
+            this.$nextTick(() => {
+                this.$refs.javaEditor && this.$refs.javaEditor._setValue(this.params.cvt_method_source)
+            })
+            return data
+        },
+        javaChange(value) {
+            this.params.cvt_method_source = value
+        },
+        argsChange(val){
+            this.params.parameters = val
         }
-        let data = {
-            cvt_method_source: this.model.exec_params.cvt_method_source,
-            parameters: p
-        }
-        this.onChange('exec_params', data)
-        return p
-      },
-      javaChange(val){
-        let p = this.cvtArgs()
-        let data = {
-            cvt_method_source: val,
-            parameters: p
-        }
-        this.onChange('exec_params', data)
-      },
-      argsChange(val){
-        this.initArgs = val
-        let data = {
-            cvt_method_source: this.model.exec_params.cvt_method_source,
-            parameters: val
-        }
-        this.onChange('exec_params', data)
-      }
     }
   }
 </script>

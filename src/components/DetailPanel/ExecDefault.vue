@@ -30,7 +30,7 @@
 <script>
 import MonacoEditor from '@/components/MonacoEditor.vue';
 import { uuid } from '@/utils/CommonUtil'
-import { exec } from '@/api/feature'
+import { exec } from '@/api/case'
 const jsonFormat = require('json-format');
 export default {
     components:{

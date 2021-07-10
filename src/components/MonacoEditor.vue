@@ -68,6 +68,7 @@ export default {
         folding: true,
         foldingStrategy: 'indentation', // 代码可分小段折叠  
         automaticLayout: true, // 自适应布局  
+        wordWrap: true,
         overviewRulerBorder: true, // 不要滚动条的边框  
         scrollBeyondLastLine: true, // 取消代码后面一大段空白
         fixedOverflowWidgets: true,
