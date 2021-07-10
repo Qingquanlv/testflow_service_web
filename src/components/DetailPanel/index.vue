@@ -13,6 +13,10 @@
         <StartEventDetail v-else-if="model.clazz === 'start'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <EndEventDetail v-else-if="model.clazz === 'end'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <ProcessDetail v-else-if="model.clazz === 'process'" :model="model" :onChange="onChange" :readOnly="readOnly" :categorys="categorys" />
+        <DatabaseDetail v-else-if="model.clazz === 'database'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <ParseDetail v-else-if="model.clazz === 'parse'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <RequestDetail v-else-if="model.clazz === 'request'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <VerificationDetail v-else-if="model.clazz === 'verification'" :model="model" :onChange="onChange" :readOnly="readOnly" />
     </div>
 </template>
 <script>
@@ -29,6 +33,10 @@
   import StartEventDetail from "./StartEventDetail"
   import EndEventDetail from "./EndEventDetail"
   import ProcessDetail from "./ProcessDetail"
+  import DatabaseDetail from "./DatabaseDetail"
+  import ParseDetail from "./ParseDetail"
+  import RequestDetail from "./RequestDetail"
+  import VerificationDetail from "./VerificationDetail"
   export default {
     inject: ['i18n'],
     components:{
@@ -45,6 +53,10 @@
       StartEventDetail,
       EndEventDetail,
       ProcessDetail,
+      DatabaseDetail,
+      ParseDetail,
+      RequestDetail,
+      VerificationDetail
     },
     props: {
       height: {
@@ -92,7 +104,7 @@
         background: #f0f2f5;
         flex: 0 0 auto;
         float: left;
-        width: 20%;
+        width: 30%;
         border-right: 1px solid #E9E9E9;
         border-bottom: 1px solid #E9E9E9;
         .panelTitle {

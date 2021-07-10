@@ -12,7 +12,7 @@
             </div>
             <div id="wfd-app">
                 <el-button type="primary" size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="onSave">保存</el-button>
-                <wfd-vue ref="wfd" :wfdData="feature" style="height:100%" :users="candidateUsers" :groups="candidateGroups" :categorys="categorys" lang="zh" />
+                <wfd-vue ref="wfd" :wfdData="feature" style="height:100%" lang="zh" />
             </div>
       </el-dialog>
   </span>
@@ -48,10 +48,7 @@ export default {
       feature:{
         nodes:[],
         edges:[]
-      },
-      candidateUsers: [{id:'1',name:'Tom'},{id:'2',name:'Steven'},{id:'3',name:'Andy'}],
-      candidateGroups: [{id:'1',name:'Manager'},{id:'2',name:'Security'},{id:'3',name:'OA'}],
-      categorys: [{id:'1',name:'Common'},{id:'2',name:'Subsidy'},{id:'3',name:'Maintain'}],
+      }
     }
   },
   mounted() {
@@ -67,7 +64,8 @@ export default {
                         clazz: item.clazz,
                         label: item.label,
                         x: item.x,
-                        y: item.y
+                        y: item.y,
+                        exec_params: resp.config.filter(x => x.id == item.id)[0] ? resp.config.filter(x => x.id == item.id)[0].exec_params : {}
                     }
                 })
                 this.feature = resp
@@ -78,12 +76,40 @@ export default {
         }
     },
     onSave(){
-        this.feature.requestId = uuid();
-        create(this.feature).then(resp => {
+        let data = this.$refs['wfd'].graph.save()
+        let req = {}
+        req.requestId = uuid()
+        req.featureId = this.feature.featureId
+        req.featureName = this.feature.featureName
+        req.description = this.feature.description
+        req.nodes = data.nodes.map(item => {
+            return {
+                "x": item.x,
+                "y": item.y,
+                "label": item.label,
+                "clazz": item.clazz
+            }
+        })
+        req.edges = data.edges.map(item => {
+            return {
+                "source": data.nodes.filter(x => x.id == item.source)[0] ? data.nodes.filter(x => x.id == item.source)[0].label : '',
+                "target": data.nodes.filter(x => x.id == item.target)[0] ? data.nodes.filter(x => x.id == item.target)[0].label : '',
+                "sourceAnchor": 1,
+                "targetAnchor": 3
+            }
+        })
+        req.config = data.nodes.map(item => {
+            return {
+                "label": item.label,
+                "exec_params": item.exec_params || {}
+            }
+        })
+        create(req).then(resp => {
             this.$message({
                 message: resp.status && resp.status.success ? '保存成功' : '保存失败',
                 type: resp.status && resp.status.success ? 'success' : 'error'
             });
+            this.onShow()
         })
     }
   }

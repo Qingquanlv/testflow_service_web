@@ -78,4 +78,9 @@ export default {
   'parseTask':'代码段',
   'requestTask':'Http请求',
   'verificationTask':'断言',
+  'database':'数据库',
+  'parse':'代码段',
+  'request':'Http请求',
+  'verification':'断言',
+  'clazz':'节点类型'
 };

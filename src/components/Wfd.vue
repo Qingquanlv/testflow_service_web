@@ -3,7 +3,7 @@
     <ToolbarPanel ref="toolbar" v-if="!isView" />
     <div style="display: flex">
       <ItemPanel ref="addItemPanel" v-if="!isView" :height="height"/>
-      <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width':isView?'100%':'70%','border-bottom':isView?0:null}"></div>
+      <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width':isView?'100%':'60%','border-bottom':isView?0:null}"></div>
       <DetailPanel ref="detailPanel"
                    v-if="!isView"
                    :height="height"
@@ -88,7 +88,7 @@
           id: '',
           name: '',
           category: '',
-          clazz: 'process',
+          clazz: '',
           dataObjs: [],
           signalDefs: [],
           messageDefs: [],
@@ -104,7 +104,6 @@
           if (this.graph) {
             this.graph.changeData(this.initShape(newData));
             this.graph.setMode(this.mode);
-            this.graph.emit('canvas:click');
             if (this.cmdPlugin) {
               this.cmdPlugin.initPlugin(this.graph);
             }
@@ -121,6 +120,7 @@
           return {
             nodes: data.nodes.map(node => {
               return {
+                type: getShapeName(node.clazz),
                 shape: getShapeName(node.clazz),
                 ...node,
               }
@@ -128,7 +128,7 @@
             edges: data.edges
           }
         }
-        return { nodes:[], edges:[] };
+        return {};
       },
       initEvents(){
         this.graph.on('afteritemselected',(items)=>{
@@ -224,6 +224,7 @@
         },
         defaultEdge: {
           shape: 'flow-polyline-round',
+          type: 'flow-polyline-round',
         },
       });
       this.graph.saveXML = (createFile = true) => exportXML(this.graph.save(),this.processModel,createFile);
@@ -251,7 +252,7 @@
     .canvasPanel {
         flex: 0 0 auto;
         float: left;
-        width:70%;
+        width:60%;
         background-color: #fff;
         border-bottom: 1px solid #E9E9E9;
     }
