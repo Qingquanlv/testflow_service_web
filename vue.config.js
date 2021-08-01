@@ -39,7 +39,8 @@ module.exports = {
     },
     proxy:{
       '/':{
-        target: 'http://120.77.254.161:8082'
+        // target: 'http://120.77.254.161:8082'
+        target: 'http://192.168.1.25:8082'
       }
     }
     //before: require('./mock/mock-server.js')

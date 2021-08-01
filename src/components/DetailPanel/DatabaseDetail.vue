@@ -4,6 +4,12 @@
         <div class="panelBody">
             <TestFlowDefault :model="model" :onChange="onChange" :readOnly="readOnly" />
             <div class="panelRow">
+                <div>环境：</div>
+                <el-input size="small"
+                    style="width:90%; font-size:12px"
+                    v-model="env" />
+            </div>
+            <div class="panelRow">
                 <div>SQL语句：</div>
                 <MonacoEditor style="width:100%;height:200px;"
                     language="sql"
@@ -44,14 +50,19 @@
     },
     data() {
       return {
+          env: this.model.exec_params.env || '',
           initsql: this.model.exec_params.sql_str
       }
     },
     watch:{
+      env(nv,ov){
+        console.log(111)
+        this.onChange('exec_params', {env: nv, sql_str : this.model.exec_params.sql_str})
+      }
     },
     methods: {
       sqlChange(val){
-        this.onChange('exec_params', {sql_str : val})
+        this.onChange('exec_params', {env: this.env, sql_str : val})
       }
     }
   }

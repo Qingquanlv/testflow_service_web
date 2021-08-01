@@ -22,12 +22,12 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: '目录', icon: 'nested' },
     children: [
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/dashboard/index'),
-        meta: { title: 'Dashboard', icon: 'dashboard' }
-      },
+      // {
+      //   path: 'dashboard',
+      //   name: 'Dashboard',
+      //   component: () => import('@/views/dashboard/index'),
+      //   meta: { title: 'Dashboard', icon: 'dashboard' }
+      // },
       {
         path: 'parameter',
         component: () => import('@/views/parameter'),
@@ -37,6 +37,16 @@ export const constantRoutes = [
         path: 'wfd',
         component: () => import('@/views/wfd'),
         meta: { title: '流程配置', icon: 'config' }
+      },
+      {
+        path: 'job',
+        component: () => import('@/views/job'),
+        meta: { title: 'Job配置', icon: 'config' }
+      },
+      {
+        path: 'job-result',
+        component: () => import('@/views/job/result'),
+        meta: { title: 'Job结果', icon: 'config' }
       }
     ]
   },
