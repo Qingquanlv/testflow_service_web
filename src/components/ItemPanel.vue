@@ -5,6 +5,12 @@
                 <img :data-item="databaseTaskData"
                      :src="require('../assets/flow/script-task.svg')" style="width:80px;height:44px" />
                 <div>{{i18n['databaseTask']}}</div>
+                <img :data-item="tidbTaskData"
+                     :src="require('../assets/flow/script-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['tidbTask']}}</div>
+                <img :data-item="druidTaskData"
+                     :src="require('../assets/flow/script-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['druidTask']}}</div>
                 <img :data-item="parseTaskData"
                      :src="require('../assets/flow/java-task.svg')" style="width:80px;height:44px" />
                 <div>{{i18n['parseTask']}}</div>
@@ -89,6 +95,8 @@
       return {
         activeNames: ['1'],
         databaseTaskData: "{clazz:'database',size:'80*44',label:'"+this.i18n['databaseTask']+"'}",
+        tidbTaskData: "{clazz:'tidb',size:'80*44',label:'"+this.i18n['tidbTask']+"'}",
+        druidTaskData: "{clazz:'druid',size:'80*44',label:'"+this.i18n['druidTask']+"'}",
         parseTaskData: "{clazz:'parse',size:'80*44',label:'"+this.i18n['parseTask']+"'}",
         requestTaskData: "{clazz:'request',size:'80*44',label:'"+this.i18n['requestTask']+"'}",
         verificationTaskData: "{clazz:'verification',size:'80*44',label:'"+this.i18n['verificationTask']+"'}",

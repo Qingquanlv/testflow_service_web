@@ -74,6 +74,8 @@ export default {
   'process.dataObjs.defaultValue': '默认值',
   'process.signalDef.scope': '作用域',
   'node': '节点',
+  'tidbTask':'TiDB',
+  'druidTask':'Druid',
   'databaseTask':'数据库',
   'parseTask':'代码段',
   'requestTask':'Http请求',
@@ -82,5 +84,7 @@ export default {
   'parse':'代码段',
   'request':'Http请求',
   'verification':'断言',
-  'clazz':'节点类型'
+  'clazz':'节点类型',
+  'tidb':'TiDB',
+  'druid':'Druid',
 };

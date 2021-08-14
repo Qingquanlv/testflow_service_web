@@ -22,6 +22,8 @@ export function getShapeName(clazz) {
     case 'parse': return 'java-task-node';
     case 'request': return 'mail-task-node';
     case 'verification': return 'receive-task-node';
+    case 'tidb': return 'script-task-node';
+    case 'druid': return 'script-task-node';
     default: return 'task-node';
   }
 }

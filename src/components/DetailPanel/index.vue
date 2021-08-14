@@ -14,6 +14,8 @@
         <EndEventDetail v-else-if="model.clazz === 'end'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <ProcessDetail v-else-if="model.clazz === 'process'" :model="model" :onChange="onChange" :readOnly="readOnly" :categorys="categorys" />
         <DatabaseDetail v-else-if="model.clazz === 'database'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <TiDBDetail v-else-if="model.clazz === 'tidb'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <DruidDetail v-else-if="model.clazz === 'druid'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <ParseDetail v-else-if="model.clazz === 'parse'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <RequestDetail v-else-if="model.clazz === 'request'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <VerificationDetail v-else-if="model.clazz === 'verification'" :model="model" :onChange="onChange" :readOnly="readOnly" />
@@ -34,6 +36,8 @@
   import EndEventDetail from "./EndEventDetail"
   import ProcessDetail from "./ProcessDetail"
   import DatabaseDetail from "./DatabaseDetail"
+  import TiDBDetail from './TiDBDetail'
+  import DruidDetail from './DruidDetail'
   import ParseDetail from "./ParseDetail"
   import RequestDetail from "./RequestDetail"
   import VerificationDetail from "./VerificationDetail"
@@ -54,6 +58,8 @@
       EndEventDetail,
       ProcessDetail,
       DatabaseDetail,
+      TiDBDetail,
+      DruidDetail,
       ParseDetail,
       RequestDetail,
       VerificationDetail

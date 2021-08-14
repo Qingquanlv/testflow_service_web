@@ -1,6 +1,6 @@
 <template>
     <div :data-clazz="model.clazz">
-        <div class="panelTitle">{{i18n['database']}}</div>
+        <div class="panelTitle">{{i18n['druid']}}</div>
         <div class="panelBody">
             <TestFlowDefault :model="model" :onChange="onChange" :readOnly="readOnly" />
             <div class="panelRow">
