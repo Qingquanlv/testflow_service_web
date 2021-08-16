@@ -13,7 +13,7 @@ export default {
     width: {type: [String, Number], default: '100%'},
     height: {type: [String, Number], default: '100%'},
     original: String,       //只有在diff模式下有效
-    value: String,
+    value: {type: String, default: ''},
     language: {type: String, default: 'json'},
     theme: {type: String, default: 'vs'},
     options: {type: Object, default() {return {};}},
@@ -29,8 +29,8 @@ export default {
       }
     },
 
-    value() {
-      this.editor && this._setValue(this.value);
+    value(val) {
+      this.editor && this._setValue(val);
     },
 
     language() {
@@ -68,6 +68,7 @@ export default {
         folding: true,
         foldingStrategy: 'indentation', // 代码可分小段折叠  
         automaticLayout: true, // 自适应布局  
+        wordWrap: true,
         overviewRulerBorder: true, // 不要滚动条的边框  
         scrollBeyondLastLine: true, // 取消代码后面一大段空白
         fixedOverflowWidgets: true,
