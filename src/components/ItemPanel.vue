@@ -20,6 +20,12 @@
                 <img :data-item="verificationTaskData"
                      :src="require('../assets/flow/receive-task.svg')" style="width:80px;height:44px" />
                 <div>{{i18n['verificationTask']}}</div>
+                <img :data-item="verification1TaskData"
+                     :src="require('../assets/flow/receive-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['verification1Task']}}</div>
+                <img :data-item="verification2TaskData"
+                     :src="require('../assets/flow/receive-task.svg')" style="width:80px;height:44px" />
+                <div>{{i18n['verification2Task']}}</div>
             </el-collapse-item>
             <!-- <el-collapse-item :title="i18n['start']" name="1">
                 <img data-item="{clazz:'start',size:'30*30',label:''}"
@@ -100,6 +106,8 @@
         parseTaskData: "{clazz:'parse',size:'80*44',label:'"+this.i18n['parseTask']+"'}",
         requestTaskData: "{clazz:'request',size:'80*44',label:'"+this.i18n['requestTask']+"'}",
         verificationTaskData: "{clazz:'verification',size:'80*44',label:'"+this.i18n['verificationTask']+"'}",
+        verification1TaskData: "{clazz:'verification1',size:'80*44',label:'"+this.i18n['verification1Task']+"'}",
+        verification2TaskData: "{clazz:'verification2',size:'80*44',label:'"+this.i18n['verification2Task']+"'}",
       };
     },
   }
