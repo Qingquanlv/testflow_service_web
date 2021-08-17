@@ -4,16 +4,26 @@
         <div class="panelBody">
             <TestFlowDefault :model="model" :onChange="onChange" :readOnly="readOnly" />
             <div class="panelRow">
-                <div>期望字段</div>
+                <div>期望对象</div>
                 <el-input size="small"
                     style="width:90%; font-size:12px"
                     :disabled="readOnly"
-                    v-model="params.expVal" />
-                <div>实际字段</div>
+                    v-model="params.expObj" />
+                <div>实际对象</div>
                 <el-input size="small"
                     style="width:90%; font-size:12px"
                     :disabled="readOnly"
-                    v-model="params.atlVal" />
+                    v-model="params.atlObj" />
+                <div>对比主键</div>
+                <el-input size="small"
+                    style="width:90%; font-size:12px"
+                    :disabled="readOnly"
+                    v-model="params.pkMap" />
+                <div>忽略字段</div>
+                <el-input size="small"
+                    style="width:90%; font-size:12px"
+                    :disabled="readOnly"
+                    v-model="params.noCompareItemMap" />
             </div>
             <div class="panelRow">
                 <ExecDefault :node="model" />
@@ -54,17 +64,18 @@
             handler(newVal){
                 this.onChange('exec_params', newVal)
             }
-        }
+        },
     },
     methods: {
         copyParams(){
             let paramCopy = {
-                expVal: (this.model.exec_params && this.model.exec_params.expVal) || '',
-                atlVal: (this.model.exec_params && this.model.exec_params.atlVal) || '',
+                expObj: (this.model.exec_params && this.model.exec_params.expObj) || '',
+                atlObj: (this.model.exec_params && this.model.exec_params.atlObj) || '',
+                pkMap: (this.model.exec_params && this.model.exec_params.pkMap) || '',
+                noCompareItemMap: (this.model.exec_params && this.model.exec_params.noCompareItemMap) || '',
             }
             return paramCopy
-        }
+        },
     }
-
   }
 </script>

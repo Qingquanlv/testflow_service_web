@@ -19,6 +19,8 @@
         <ParseDetail v-else-if="model.clazz === 'parse'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <RequestDetail v-else-if="model.clazz === 'request'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <VerificationDetail v-else-if="model.clazz === 'verification'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <Verification1Detail v-else-if="model.clazz === 'verification1'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <Verification2Detail v-else-if="model.clazz === 'verification2'" :model="model" :onChange="onChange" :readOnly="readOnly" />
     </div>
 </template>
 <script>
@@ -41,6 +43,8 @@
   import ParseDetail from "./ParseDetail"
   import RequestDetail from "./RequestDetail"
   import VerificationDetail from "./VerificationDetail"
+  import Verification1Detail from "./Verification1Detail"
+  import Verification2Detail from "./Verification2Detail"
   export default {
     inject: ['i18n'],
     components:{
@@ -62,7 +66,9 @@
       DruidDetail,
       ParseDetail,
       RequestDetail,
-      VerificationDetail
+      VerificationDetail,
+      Verification1Detail,
+      Verification2Detail
     },
     props: {
       height: {
