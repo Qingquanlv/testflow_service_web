@@ -137,7 +137,10 @@
             if(!item){
               item = this.getNodeInSubProcess(items[0])
             }
-            this.selectedModel = {...item.getModel()};
+            this.selectedModel = {...item.getModel(), clazz:''};
+            this.$nextTick(() => {
+              this.selectedModel.clazz = item.getModel().clazz
+            })
           } else {
             // this.selectedModel = this.defaultModel;
           }
