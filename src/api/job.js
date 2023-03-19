@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function queryAll() {
+export function queryAll(data) {
   return request({
     url: '/job/queryAll',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
@@ -46,6 +47,13 @@ export function exec(id) {
   })
 }
 
+export function batchExec(ids) {
+  return request({
+    url: `/job/batchExecute?jobIds=${ids}`,
+    method: 'get',
+  })
+}
+
 export function getTask(data) {
   return request({
     url: `/task/getTask`,
@@ -54,9 +62,18 @@ export function getTask(data) {
   })
 }
 
-export function taskResult(id) {
+export function taskResult(data) {
   return request({
-    url: `/task/getResult?taskId=${id}`,
-    method: 'get',
+    url: `/task/getResult`,
+    method: 'post',
+    data
+  })
+}
+
+export function taskCaseResult(data) {
+  return request({
+    url: `/task/getStepResult`,
+    method: 'post',
+    data
   })
 }

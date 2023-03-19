@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function queryAll() {
+export function queryAll(data) {
   return request({
-    url: '/feature/queryAll',
-    method: 'get'
+    url: `/feature/queryAll`,
+    method: 'post',
+    data
   })
 }
 

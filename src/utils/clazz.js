@@ -22,10 +22,13 @@ export function getShapeName(clazz) {
     case 'parse': return 'java-task-node';
     case 'request': return 'mail-task-node';
     case 'verification': return 'receive-task-node';
-    case 'verification1': return 'receive-task-node';
-    case 'verification2': return 'receive-task-node';
+    case 'compare_path': return 'receive-task-node';
+    case 'compare_obj': return 'receive-task-node';
     case 'tidb': return 'script-task-node';
     case 'druid': return 'script-task-node';
+    case 'condition_if': return 'inclusive-gateway-node';
+    case 'condition_for': return 'inclusive-gateway-node';
+    case 'sonar': return 'mail-task-node';
     default: return 'task-node';
   }
 }

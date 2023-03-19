@@ -20,7 +20,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    meta: { title: '目录', icon: 'nested' },
+    meta: { title: 'TestFlow', icon: 'nested' },
     children: [
       // {
       //   path: 'dashboard',
@@ -28,6 +28,11 @@ export const constantRoutes = [
       //   component: () => import('@/views/dashboard/index'),
       //   meta: { title: 'Dashboard', icon: 'dashboard' }
       // },
+      {
+        path: 'env',
+        component: () => import('@/views/env/env'),
+        meta: { title: '环境配置', icon: 'config' }
+      },
       {
         path: 'parameter',
         component: () => import('@/views/parameter'),
@@ -50,6 +55,24 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/ops',
+    component: Layout,
+    meta: { title: 'TestOps', icon: 'nested' },
+    hidden: true,
+    children: [
+      {
+        path: 'env',
+        component: () => import('@/views/opsplan'),
+        meta: { title: 'Ops Task', icon: 'config' },
+      },
+      {
+        path: 'job-result',
+        component: () => import('@/views/opstask'),
+        meta: { title: 'Ops Details', icon: 'config' },
+      }
+    ]
+  }
 ]
 
 const createRouter = () => new Router({

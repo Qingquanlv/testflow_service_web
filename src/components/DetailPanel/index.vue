@@ -19,8 +19,11 @@
         <ParseDetail v-else-if="model.clazz === 'parse'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <RequestDetail v-else-if="model.clazz === 'request'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <VerificationDetail v-else-if="model.clazz === 'verification'" :model="model" :onChange="onChange" :readOnly="readOnly" />
-        <Verification1Detail v-else-if="model.clazz === 'verification1'" :model="model" :onChange="onChange" :readOnly="readOnly" />
-        <Verification2Detail v-else-if="model.clazz === 'verification2'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <ComparePathDetail v-else-if="model.clazz === 'compare_path'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <CompareObjDetail v-else-if="model.clazz === 'compare_obj'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <ConditionIfDetail v-else-if="model.clazz === 'condition_if'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <ConditionForDetail v-else-if="model.clazz === 'condition_for'" :model="model" :onChange="onChange" :readOnly="readOnly" />
+        <SubFeatureDetail v-else-if="model.clazz === 'feature'" :model="model" :onChange="onChange" :readOnly="readOnly" />
     </div>
 </template>
 <script>
@@ -43,8 +46,11 @@
   import ParseDetail from "./ParseDetail"
   import RequestDetail from "./RequestDetail"
   import VerificationDetail from "./VerificationDetail"
-  import Verification1Detail from "./Verification1Detail"
-  import Verification2Detail from "./Verification2Detail"
+  import ComparePathDetail from "./ComparePathDetail"
+  import CompareObjDetail from "./CompareObjDetail"
+  import ConditionIfDetail from "./ConditionIfDetail"
+  import ConditionForDetail from "./ConditionForDetail"
+  import SubFeatureDetail from "./SubFeatureDetail"
   export default {
     inject: ['i18n'],
     components:{
@@ -67,8 +73,11 @@
       ParseDetail,
       RequestDetail,
       VerificationDetail,
-      Verification1Detail,
-      Verification2Detail
+      ComparePathDetail,
+      CompareObjDetail,
+      ConditionIfDetail,
+      ConditionForDetail,
+      SubFeatureDetail
     },
     props: {
       height: {

@@ -26,8 +26,8 @@
   import AddItemPanel from '../plugins/addItemPanel'
   import CanvasPanel from '../plugins/canvasPanel'
   import ToolbarPanel from '../components/ToolbarPanel'
-  import ItemPanel from '../components/ItemPanel'
-  import DetailPanel from '../components/DetailPanel'
+  import ItemPanel from '../components/OpsItemPanel'
+  import DetailPanel from '../components/ops_details_panel'
   import i18n from '../locales'
   import {exportXML,exportImg} from "../utils/bpmn"
   import registerShape from '../shape'

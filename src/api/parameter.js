@@ -1,12 +1,20 @@
 import request from '@/utils/request'
 
-export function queryAll() {
+export function queryAll(data) {
   return request({
     url: '/parameter/queryall',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
+export function query(params) {
+  return request({
+    url: `/parameter/query`,
+    method: 'get',
+    params
+  })
+}
 
 export function create(data) {
   return request({
@@ -24,7 +32,7 @@ export function update(data) {
   })
 }
 
-export function deleteByName(params) {
+export function deleteById(params) {
   return request({
     url: '/parameter/delete',
     method: 'post',
